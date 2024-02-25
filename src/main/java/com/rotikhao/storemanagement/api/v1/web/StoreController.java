@@ -21,8 +21,13 @@ public class StoreController {
     private UUID owner = UUID.fromString("640b238f-a85e-40ce-b754-9dd7607469bc");
 
     @GetMapping
-    public List<Store> getAllStores(@RequestBody String ownerId) { //TODO get details from authentication principle
-        return storeService.getAllStore(UUID.fromString(ownerId));
+    public List<Store> getAllStores() { //TODO get details from authentication principle
+        return storeService.getAllStore(owner);
+    }
+
+    @GetMapping("/{storeId}")
+    public Store getStoreById(@PathVariable("storeId") UUID storeId) {
+        return storeService.getStoreById(storeId, owner);
     }
 
     @PostMapping
@@ -30,11 +35,10 @@ public class StoreController {
         return storeService.createStore(createStoreRequest, owner);
     }
 
-    @PutMapping
-    public void update(@RequestBody CreateStoreRequest updateStoreRequest) {
-
+    @PutMapping("/{storeId}")
+    public void update(@PathVariable("storeId") UUID storeId, @RequestBody CreateStoreRequest updateStoreRequest) {
+        storeService.updateStore(updateStoreRequest, storeId, owner);
     }
-
 
 
 }
