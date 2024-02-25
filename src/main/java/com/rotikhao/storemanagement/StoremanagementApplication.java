@@ -15,11 +15,6 @@ public class StoremanagementApplication {
 		SpringApplication.run(StoremanagementApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner runner(JdbcConnectionDetails ds){
-		return args -> {
-			System.out.println(ds.toString());
-		};
-	}
+
 
 }

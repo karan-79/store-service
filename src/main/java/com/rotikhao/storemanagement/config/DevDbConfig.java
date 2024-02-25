@@ -17,7 +17,7 @@ public class DevDbConfig {
     @ConditionalOnProperty(name = "db", havingValue = "h2")
     public DataSource h2DataSource(){
         return DataSourceBuilder.create()
-                .url("jdbc:h2:mem:testdb")
+                .url("jdbc:h2:mem:testdb;MODE=PostgreSQL")
                 .driverClassName("org.h2.Driver")
                 .username("sa")
                 .password("password")
