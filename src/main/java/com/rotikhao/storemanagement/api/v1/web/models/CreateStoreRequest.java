@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.lang.NonNull;
 
 @Data
+@AllArgsConstructor
 public class CreateStoreRequest {
     @NotEmpty
     String name;

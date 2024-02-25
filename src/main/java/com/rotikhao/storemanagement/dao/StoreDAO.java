@@ -3,54 +3,64 @@ package com.rotikhao.storemanagement.dao;
 import com.rotikhao.storemanagement.api.v1.web.models.CreateStoreRequest;
 import com.rotikhao.storemanagement.models.Store;
 import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.UUID;
+import javax.swing.text.html.Option;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
 public class StoreDAO {
 
     private JdbcClient jdbcClient;
+    private NamedParameterJdbcTemplate jdbcTemplate;
 
     public List<Store> getAllStores(String ownerId) {
-        return jdbcClient.sql("SELECT * FROM STORES WHERE ownerid = ?")
-                .param(ownerId)
+        var sql = "SELECT * FROM STORES WHERE ownerid = :id";
+
+        return jdbcClient.sql(sql)
+                .param("id", ownerId)
                 .query(Store.class)
                 .list();
     }
 
     public UUID create(CreateStoreRequest createStoreRequest, String ownerId) {
         var storeId = UUID.randomUUID();
+
         jdbcClient.sql("""
                         INSERT INTO STORES(
-                            ID
+                            ID,
                             STORENAME,
                             DESCRIPTION,
                             OWNERID
-                        ) VALUES (:storeName, :description, :ownerId);
+                        ) VALUES (:id, :storeName, :description, :ownerId);
                         """)
                 .param("id", storeId)
                 .param("storeName", createStoreRequest.getName())
                 .param("description", createStoreRequest.getDescription())
                 .param("ownerId", ownerId)
-                .query();
+                .update();
         return storeId;
     }
 
-    public Store getStoreById(String storeID) {
-        return jdbcClient.sql("SELECT * STORE WHERE id = ?")
-                .param(storeID)
+    public Optional<Store> getStoreById(String storeID, String ownerId) {
+        return jdbcClient.sql("SELECT * FROM STORES WHERE id = :id AND ownerId = :ownerId")
+                .param("id", storeID)
+                .param("ownerId", ownerId)
                 .query(Store.class)
-                .single();
+                .optional();
     }
 
     public void updateStore(Store store) {
         jdbcClient.sql("""
                 UPDATE STORES SET STORENAME = :storeName, DESCRIPTION = :description, LOCATION = :location 
                 WHERE ID = :id
-                """).paramSource(store).query();
+                """).paramSource(store).update();
     }
 }

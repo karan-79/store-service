@@ -15,6 +15,6 @@ public class Store {
     String description;
     UUID ownerId;
     String location;
-    LocalDate createdOn;
+    LocalDate creationDate;
     LocalDateTime lastUpdated;
 }
