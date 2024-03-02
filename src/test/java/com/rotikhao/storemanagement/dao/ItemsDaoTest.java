@@ -24,6 +24,12 @@ class ItemsDaoTest extends BaseIntegrationTests {
     }
 
     @Test
+    void getSearchedItems() {
+        var items = itemsDao.getItemsByText(storeId, "paneer");
+        assertFalse(items.isEmpty());
+    }
+
+    @Test
     void createItem() {
         var id = itemsDao.createItem(testData.getCreateItemRequest(), storeId);
         var items = itemsDao.getAllItems(storeId);
@@ -43,6 +49,6 @@ class ItemsDaoTest extends BaseIntegrationTests {
 
     @Test
     void deleteFromCategory() {
-        assertDoesNotThrow(()->itemsDao.deleteAllInCategory(2, storeId));
+        assertDoesNotThrow(()->itemsDao.deleteAllInCategory(3, storeId));
     }
 }

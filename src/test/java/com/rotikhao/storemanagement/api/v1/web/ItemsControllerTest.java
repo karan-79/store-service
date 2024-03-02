@@ -24,6 +24,12 @@ class ItemsControllerTest extends BaseIntegrationTests {
     }
 
     @Test
+    void getSearchedItems() {
+        var res = restTemplate.getForObject(getItemsURL() + "/search?q=paneer", Item[].class);
+        assertTrue(res.length > 0);
+    }
+
+    @Test
     void create() {
         var res = restTemplate.postForEntity(
                 getItemsURL(),

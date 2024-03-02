@@ -19,6 +19,10 @@ public class ItemService {
         return itemsDao.getAllItems(storeId);
     }
 
+    public List<Item> getSearchedItems(UUID storeId, String searchText) {
+        return itemsDao.getItemsByText(storeId, searchText);
+    }
+
     public Item createItem(CreateItemRequest req, UUID storeId) {
         var id = itemsDao.createItem(req, storeId);
         return new Item(id, storeId, req);
