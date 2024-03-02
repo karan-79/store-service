@@ -9,7 +9,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "karan-79-patch-1"]
   pull_request:
     branches: [ "main" ]
 
@@ -30,8 +30,7 @@ jobs:
 
     - name: check version 
       run: |
-        docker version
-          
+        chmod +x gradlew
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
