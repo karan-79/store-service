@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All tests - local" type="JUnit" factoryName="JUnit">
+    <module name="storemanagement.test" />
+    <option name="PACKAGE_NAME" value="com.rotikhao.storemanagement" />
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="package" />
+    <envs>
+      <env name="spring.profiles.active" value="dev" />
+    </envs>
+    <dir value="$USER_HOME$/Downloads/demo_docker/demo/src/test" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
