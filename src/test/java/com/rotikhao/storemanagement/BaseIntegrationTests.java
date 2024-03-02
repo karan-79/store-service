@@ -3,6 +3,7 @@ package com.rotikhao.storemanagement;
 import com.rotikhao.storemanagement.config.DevDbConfig;
 import org.awaitility.classpath.ClassPathResolver;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,16 +30,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import static com.rotikhao.storemanagement.utils.UUIDUtils.uuid;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("dev")
 @RunWith(SpringRunner.class)
-public class BaseIntegrationTests {
+public abstract class BaseIntegrationTests {
 
     @LocalServerPort
     int port;
     @Value("${server.servlet.context-path}")
     String contextPath;
     protected UUID ownerID = UUID.fromString("640b238f-a85e-40ce-b754-9dd7607469bc");
+    protected UUID storeId = uuid("e3ac9673-0629-4df6-89d4-5199f527bfd4"); // same id used in data.sql for mock data
 
     protected TestRestTemplate restTemplate = new TestRestTemplate(new RestTemplateBuilder()
             .defaultHeader("Content-Type","application/json")

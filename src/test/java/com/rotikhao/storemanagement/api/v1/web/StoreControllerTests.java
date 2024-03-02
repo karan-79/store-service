@@ -18,8 +18,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Component
-public class StoreControllerTests extends BaseIntegrationTests {
+class StoreControllerTests extends BaseIntegrationTests {
 
     @Autowired
     TestData testData;

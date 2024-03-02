@@ -32,4 +32,9 @@ public class CategoriesController {
     public void update(@PathVariable("storeId") UUID storeId, @RequestBody APIItemCategory itemCategory) {
         categoriesService.update(itemCategory, storeId);
     }
+
+    @DeleteMapping("/{cid}")
+    public void deleteCategory(@PathVariable("storeId") UUID storeId, @PathVariable("cid") int categoryId) {
+        categoriesService.deleteCategory(categoryId, storeId);
+    }
 }

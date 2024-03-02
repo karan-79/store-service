@@ -4,11 +4,10 @@ import com.rotikhao.storemanagement.BaseIntegrationTests;
 import com.rotikhao.storemanagement.TestData;
 import com.rotikhao.storemanagement.api.v1.web.models.APIItemCategory;
 import com.rotikhao.storemanagement.api.v1.web.models.CreateCategoryRequest;
+import com.rotikhao.storemanagement.service.ItemService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -16,14 +15,15 @@ import java.util.UUID;
 import static com.rotikhao.storemanagement.utils.UUIDUtils.uuid;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Component
 class CategoriesDAOTest extends BaseIntegrationTests {
-    UUID storeId = uuid("e3ac9673-0629-4df6-89d4-5199f527bfd4"); // same id used in data.sql for mock data
     @Autowired
     TestData testData;
 
     @Autowired
     CategoriesDAO categoriesDAO;
+
+    @Autowired
+    ItemService itemService;
 
     @Test
     void getAllCategories() {
@@ -32,7 +32,6 @@ class CategoriesDAOTest extends BaseIntegrationTests {
     }
 
     @Test
-    @ConditionalOnProperty(name = "db", havingValue = "postgres")
     void createCategory() {
         var req = new CreateCategoryRequest("Extras");
         var id = categoriesDAO.createItemCategory(req, storeId);
@@ -48,9 +47,12 @@ class CategoriesDAOTest extends BaseIntegrationTests {
     }
 
     @Test
-    @Disabled
     void deleteCategory() {
-        assertDoesNotThrow(() -> categoriesDAO.deleteCategory(1, storeId));
+        assertDoesNotThrow(() -> {
+            int category = 1;
+            itemService.deleteFromCategory(category, storeId);
+            categoriesDAO.deleteCategory(1, storeId);
+        });
     }
 
 }

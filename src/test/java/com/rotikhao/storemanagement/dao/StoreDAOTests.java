@@ -2,17 +2,13 @@ package com.rotikhao.storemanagement.dao;
 
 import com.rotikhao.storemanagement.BaseIntegrationTests;
 import com.rotikhao.storemanagement.TestData;
-import static com.rotikhao.storemanagement.utils.UUIDUtils.uuid;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+import static com.rotikhao.storemanagement.utils.UUIDUtils.uuid;
 
-@Component
-public class StoreDAOTests extends BaseIntegrationTests {
+class StoreDAOTests extends BaseIntegrationTests {
 
     @Autowired
     TestData testData;
@@ -45,8 +41,9 @@ public class StoreDAOTests extends BaseIntegrationTests {
         Assertions.assertTrue(store.isPresent());
     }
 
-    @Test void updateStore(){
-        Assertions.assertDoesNotThrow(()->storeDAO.updateStore(testData.getStoreData()));
+    @Test
+    void updateStore() {
+        Assertions.assertDoesNotThrow(() -> storeDAO.updateStore(testData.getStoreData()));
     }
 
 

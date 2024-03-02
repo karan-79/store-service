@@ -6,6 +6,7 @@ import com.rotikhao.storemanagement.dao.CategoriesDAO;
 import com.rotikhao.storemanagement.models.ItemCategory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
 public class CategoriesService {
 
     private CategoriesDAO categoriesDAO;
+    private ItemService itemService;
 
     public List<APIItemCategory> getAll(UUID storeId) {
         return categoriesDAO.getAllCategories(storeId)
@@ -31,4 +33,9 @@ public class CategoriesService {
         categoriesDAO.updateCategory(itemCategory, storeId);
     }
 
+    @Transactional
+    public void deleteCategory(int categoryId, UUID storeId) {
+       itemService.deleteFromCategory(categoryId,storeId);
+       categoriesDAO.deleteCategory(categoryId, storeId);
+    }
 }
