@@ -8,15 +8,17 @@ import com.rotikhao.storemanagement.models.Store;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.autoconfigure.web.client.RestClientBuilderConfigurer;
+import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.test.web.reactive.server.WebTestClient;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Component
-public class StoreControllerTests extends BaseIntegrationTests {
+class StoreControllerTests extends BaseIntegrationTests {
 
     @Autowired
     TestData testData;
@@ -32,7 +34,7 @@ public class StoreControllerTests extends BaseIntegrationTests {
 
     @Test
     void getStoreById() {
-        var storeId = storeDAO.create(testData.getCreateStoreRequest(), ownerID.toString());
+        var storeId = storeDAO.create(testData.getCreateStoreRequest(), ownerID);
         var resp = restTemplate.getForObject(makePath("/v1/stores/" + storeId.toString()), Store.class);
         Assertions.assertNotNull(resp);
     }
@@ -47,7 +49,7 @@ public class StoreControllerTests extends BaseIntegrationTests {
 
     @Test
     void putStore() {
-        var storeId = storeDAO.create(testData.getCreateStoreRequest(), ownerID.toString());
+        var storeId = storeDAO.create(testData.getCreateStoreRequest(), ownerID);
         var req = new HttpEntity<>(new CreateStoreRequest("Delhi dhaba", "abssss", "park de samne"));
         var resp = restTemplate.exchange(makePath("/v1/stores/" + storeId), HttpMethod.PUT, req, Object.class);
         assertEquals(resp.getStatusCode(), HttpStatus.OK);

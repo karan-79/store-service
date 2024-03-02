@@ -2,6 +2,7 @@ package com.rotikhao.storemanagement.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,11 +33,6 @@ public class DevDbConfig {
             ds.setMaxLifetime(5000);
             cleanmigrate(ds);
             return ds;
-    }
-
-    @Bean
-    public JdbcClient client(DataSource ds){
-        return JdbcClient.create(ds);
     }
 
     public void cleanmigrate(DataSource ds){

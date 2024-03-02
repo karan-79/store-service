@@ -19,9 +19,8 @@ import java.util.*;
 public class StoreDAO {
 
     private JdbcClient jdbcClient;
-    private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public List<Store> getAllStores(String ownerId) {
+    public List<Store> getAllStores(UUID ownerId) {
         var sql = "SELECT * FROM STORES WHERE ownerid = :id";
 
         return jdbcClient.sql(sql)
@@ -30,7 +29,7 @@ public class StoreDAO {
                 .list();
     }
 
-    public UUID create(CreateStoreRequest createStoreRequest, String ownerId) {
+    public UUID create(CreateStoreRequest createStoreRequest, UUID ownerId) {
         var storeId = UUID.randomUUID();
 
         jdbcClient.sql("""
@@ -44,12 +43,12 @@ public class StoreDAO {
                 .param("id", storeId)
                 .param("storeName", createStoreRequest.getName())
                 .param("description", createStoreRequest.getDescription())
-                .param("ownerId", ownerId)
+            .param("ownerId", ownerId)
                 .update();
         return storeId;
     }
 
-    public Optional<Store> getStoreById(String storeID, String ownerId) {
+    public Optional<Store> getStoreById(UUID storeID,UUID ownerId) {
         return jdbcClient.sql("SELECT * FROM STORES WHERE id = :id AND ownerId = :ownerId")
                 .param("id", storeID)
                 .param("ownerId", ownerId)
