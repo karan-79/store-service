@@ -20,9 +20,11 @@ INSERT INTO ITEMS (StoreID,
                    Price)
 VALUES ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 1, 'Manchurian', 'dry', 60),
         ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 1, 'Pasta', 'red sauce', 100),
-       ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 2, 'Kadahi paneer', ' kadahi paneer', 230) ,
+       ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 2, 'Kadahi paneer', ' kadahi paneer', 230),
+       ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 2, 'Shahi paneer', ' kadahi paneer', 230),
+       ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 2, 'paneer do pyaza', ' kadahi paneer', 230),
        ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 2, 'Dal makhni', ' vdia wali daal', 150),
        ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 1, 'Lassi', 'namkeen', 30),
        ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 1, 'Mango shake', ' large glass', 40);
 
-SELECT setval('items_id_seq', 6)
+SELECT setval('items_id_seq', 8)

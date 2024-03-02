@@ -22,6 +22,15 @@ public class ItemsDao {
                 .list();
     }
 
+    public List<Item> getItemsByText(UUID storeId, String text) {
+        var sql = "SELECT * FROM ITEMS WHERE STOREID = "+ "'" + storeId.toString() + "'" + " AND NAME LIKE '%" + text + "%'";
+        return jdbcClient.sql(sql)
+                .param("storeId", storeId)
+                .param("text", text)
+                .query(Item.class)
+                .list();
+    }
+
     public int createItem(CreateItemRequest createItemRequest, UUID storeId) {
         var sql = """
                 INSERT INTO ITEMS (STOREID, CATEGORYID, NAME, DESCRIPTION, PRICE)

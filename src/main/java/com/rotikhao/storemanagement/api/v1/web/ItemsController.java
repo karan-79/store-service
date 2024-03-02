@@ -6,6 +6,7 @@ import com.rotikhao.storemanagement.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 import java.util.UUID;
 
@@ -21,8 +22,14 @@ public class ItemsController {
         return itemService.getAllItems(storeId);
     }
 
+
+    @GetMapping("/search")
+    public List<Item> search(@PathVariable("storeId") UUID storeId, @RequestParam("q") String query){
+        return itemService.getSearchedItems(storeId, query);
+    }
+
     @PostMapping
-    public Item createItem(@PathVariable("storeId") UUID storeId,@RequestBody CreateItemRequest req) {
+    public Item createItem(@PathVariable("storeId") UUID storeId, @RequestBody CreateItemRequest req) {
         return itemService.createItem(req, storeId);
     }
 
@@ -35,6 +42,6 @@ public class ItemsController {
 
     public void deleteItem(@PathVariable("storeId") UUID storeId,
                            @PathVariable("itemId") int itemId) {
-    itemService.delete(itemId, storeId);
+        itemService.delete(itemId, storeId);
     }
 }
