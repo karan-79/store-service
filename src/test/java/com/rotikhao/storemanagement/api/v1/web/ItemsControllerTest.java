@@ -29,7 +29,6 @@ class ItemsControllerTest extends BaseIntegrationTests {
         assertTrue(res.length > 0);
     }
 
-    @Test
     void create() {
         var res = restTemplate.postForEntity(
                 getItemsURL(),

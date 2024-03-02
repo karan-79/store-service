@@ -6,7 +6,7 @@ import com.rotikhao.storemanagement.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.Query;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +21,7 @@ public class ItemsController {
     public List<Item> getAll(@PathVariable("storeId") UUID storeId) {
         return itemService.getAllItems(storeId);
     }
+
 
     @GetMapping("/search")
     public List<Item> search(@PathVariable("storeId") UUID storeId, @RequestParam("q") String query){
