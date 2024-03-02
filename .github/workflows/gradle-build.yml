@@ -28,8 +28,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: setup-docker
-      uses: docker-practice/actions-setup-docker@v1
+    - name: check version 
+      run: |
+        docker version
           
 
     - name: Setup Gradle
