@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class CategoriesDAO {
 
     private final JdbcClient jdbcClient;
 
-    public List<ItemCategory> getAllCategories(String storeId) {
+    public List<ItemCategory> getAllCategories(UUID storeId) {
         var sql = """
                 Select * from MENUCATEGORIES where STOREID = :storeId
                 """;
@@ -27,7 +28,7 @@ public class CategoriesDAO {
                 .list();
     }
 
-    public int createItemCategory(CreateCategoryRequest request, String storeId) {
+    public int createItemCategory(CreateCategoryRequest request, UUID storeId) {
         var sql = """
                 INSERT INTO MENUCATEGORIES (
                         STOREID,
@@ -35,6 +36,7 @@ public class CategoriesDAO {
                 ) VALUES (:storeId, :name)
                 RETURNING ID;
                 """;
+
         return jdbcClient.sql(sql)
                 .param("storeId", storeId)
                 .param("name", request.getName())
@@ -42,7 +44,7 @@ public class CategoriesDAO {
                 .single();
     }
 
-    public void updateCategory(APIItemCategory apiItemCategory, String storeId){
+    public void updateCategory(APIItemCategory apiItemCategory, UUID storeId){
         var sql = """
                 UPDATE MENUCATEGORIES SET NAME = :name WHERE ID = :id AND storeId = :storeId
                 """;
@@ -53,7 +55,7 @@ public class CategoriesDAO {
                 .update();
     }
 
-    public void deleteCategory(int categoryId, String storeId) {
+    public void deleteCategory(int categoryId, UUID storeId) {
         var sql = """
                 DELETE FROM MENUCATEGORIES WHERE ID = :id AND STOREID = :storeId
                 """;

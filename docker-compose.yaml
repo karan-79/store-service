@@ -3,7 +3,7 @@ services:
   database:
     image: postgres:latest
     ports:
-      - 5432:5432
+      - 3443:5432
     environment:
       - "POSTGRES_PASSWORD=karan"
       - "POSTGRES_USER=karan"

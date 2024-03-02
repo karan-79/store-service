@@ -18,20 +18,20 @@ public class StoreService {
     private final StoreDAO storeDAO;
 
     public List<Store> getAllStore(UUID ownerId) {
-        return storeDAO.getAllStores(ownerId.toString());
+        return storeDAO.getAllStores(ownerId);
     }
 
     public Store createStore(CreateStoreRequest createStoreRequest, UUID ownerId) {
-        var storeID = storeDAO.create(createStoreRequest, ownerId.toString());
-        return storeDAO.getStoreById(storeID.toString(),ownerId.toString()).orElseThrow(()->new RuntimeException());
+        var storeID = storeDAO.create(createStoreRequest, ownerId);
+        return storeDAO.getStoreById(storeID, ownerId).orElseThrow(() -> new RuntimeException());
     }
 
     public Store getStoreById(UUID storeId, UUID ownerId) {
-        return storeDAO.getStoreById(storeId.toString(), ownerId.toString()).orElseGet(null);
+        return storeDAO.getStoreById(storeId, ownerId).orElseGet(null);
     }
 
     public void updateStore(CreateStoreRequest createStoreRequest, UUID storeId, UUID ownerId) {
-        var oldStore = storeDAO.getStoreById(storeId.toString(), ownerId.toString()).orElseThrow(()->new RuntimeException());
+        var oldStore = storeDAO.getStoreById(storeId, ownerId).orElseThrow(() -> new RuntimeException());
 
         DbUtils.updateIfChanged(oldStore::getStoreName, createStoreRequest::getName, oldStore::setStoreName);
         DbUtils.updateIfChanged(oldStore::getDescription, createStoreRequest::getDescription, oldStore::setStoreName);

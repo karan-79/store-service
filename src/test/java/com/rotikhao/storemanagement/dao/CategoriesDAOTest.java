@@ -4,17 +4,21 @@ import com.rotikhao.storemanagement.BaseIntegrationTests;
 import com.rotikhao.storemanagement.TestData;
 import com.rotikhao.storemanagement.api.v1.web.models.APIItemCategory;
 import com.rotikhao.storemanagement.api.v1.web.models.CreateCategoryRequest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
+import static com.rotikhao.storemanagement.utils.UUIDUtils.uuid;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Component
 class CategoriesDAOTest extends BaseIntegrationTests {
-    String storeId = "e3ac9673-0629-4df6-89d4-5199f527bfd4"; // same id used in data.sql for mock data
+    UUID storeId = uuid("e3ac9673-0629-4df6-89d4-5199f527bfd4"); // same id used in data.sql for mock data
     @Autowired
     TestData testData;
 
@@ -43,9 +47,9 @@ class CategoriesDAOTest extends BaseIntegrationTests {
         assertDoesNotThrow(() -> categoriesDAO.updateCategory(req, storeId));
     }
 
-//    @Test
+    @Test
+    @Disabled
     void deleteCategory() {
-
         assertDoesNotThrow(() -> categoriesDAO.deleteCategory(1, storeId));
     }
 

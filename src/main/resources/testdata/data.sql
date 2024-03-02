@@ -11,6 +11,8 @@ VALUES (1, 'e3ac9673-0629-4df6-89d4-5199f527bfd4', 'Snacks'),
        (2, 'e3ac9673-0629-4df6-89d4-5199f527bfd4', 'Main course'),
        (3, 'e3ac9673-0629-4df6-89d4-5199f527bfd4', 'Beverages');
 
+SELECT setval('menucategories_id_seq', 3);
+
 INSERT INTO ITEMS (StoreID,
                    CATEGORYID,
                    Name,
@@ -22,3 +24,5 @@ VALUES ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 1, 'Manchurian', 'dry', 60),
        ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 2, 'Dal makhni', ' vdia wali daal', 150),
        ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 1, 'Lassi', 'namkeen', 30),
        ('e3ac9673-0629-4df6-89d4-5199f527bfd4', 1, 'Mango shake', ' large glass', 40);
+
+SELECT setval('items_id_seq', 6)

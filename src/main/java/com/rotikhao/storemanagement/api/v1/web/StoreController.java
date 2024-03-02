@@ -4,12 +4,15 @@ import com.rotikhao.storemanagement.api.v1.web.models.CreateStoreRequest;
 import com.rotikhao.storemanagement.models.Store;
 import com.rotikhao.storemanagement.service.StoreService;
 import jakarta.validation.Valid;
+import jdk.jfr.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @RestController
 @RequestMapping("v1/stores")

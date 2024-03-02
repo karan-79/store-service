@@ -2,11 +2,14 @@ package com.rotikhao.storemanagement.dao;
 
 import com.rotikhao.storemanagement.BaseIntegrationTests;
 import com.rotikhao.storemanagement.TestData;
+import static com.rotikhao.storemanagement.utils.UUIDUtils.uuid;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class StoreDAOTests extends BaseIntegrationTests {
@@ -22,23 +25,23 @@ public class StoreDAOTests extends BaseIntegrationTests {
     void createStoreTests() {
 
         var req = testData.getCreateStoreRequest();
-        var uuid = storeDAO.create(req, "640b238f-a85e-40ce-b754-9dd7607469bc");
-        var savedStore = storeDAO.getStoreById(uuid.toString(), "640b238f-a85e-40ce-b754-9dd7607469bc").orElseThrow();
+        var uuid = storeDAO.create(req, uuid("640b238f-a85e-40ce-b754-9dd7607469bc"));
+        var savedStore = storeDAO.getStoreById(uuid, uuid("640b238f-a85e-40ce-b754-9dd7607469bc")).orElseThrow();
 
         Assertions.assertEquals(req.getName(), savedStore.getStoreName());
     }
 
     @Test
     void getAllStores() {
-        var stores = storeDAO.getAllStores("640b238f-a85e-40ce-b754-9dd7607469bc");
+        var stores = storeDAO.getAllStores(uuid("640b238f-a85e-40ce-b754-9dd7607469bc"));
         Assertions.assertFalse(stores.isEmpty());
     }
 
     @Test
     void getStoreById() {
         var req = testData.getCreateStoreRequest();
-        var uuid = storeDAO.create(req, "640b238f-a85e-40ce-b754-9dd7607469bc");
-        var store = storeDAO.getStoreById(uuid.toString(), "640b238f-a85e-40ce-b754-9dd7607469bc");
+        var uuid = storeDAO.create(req, uuid("640b238f-a85e-40ce-b754-9dd7607469bc"));
+        var store = storeDAO.getStoreById(uuid, uuid("640b238f-a85e-40ce-b754-9dd7607469bc"));
         Assertions.assertTrue(store.isPresent());
     }
 
